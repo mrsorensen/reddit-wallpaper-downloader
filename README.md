@@ -1,6 +1,9 @@
 # reddit-wallpaper-downloader
 Downloads HD wallpapers from whichever subreddit you want
 
+![Screenshot](https://github.com/mrsorensen/reddit-wallpaper-downloader/blob/master/screenshot.png "Screenshot")
+
+
 ## How to configure
 Edit config in getWalls.py
 ```
