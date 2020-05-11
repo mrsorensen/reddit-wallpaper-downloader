@@ -16,7 +16,7 @@
 # ---------------------
 
 # Where to store downloaded images
-directory = '~/Pictures/Wallpapers/Reddit'
+directory = '~/Pictures/Wallpapers/Reddit/'
 # Which subreddit to download from
 subreddit = 'wallpapers'
 # Minimum width of image
@@ -24,7 +24,7 @@ min_width = 1920
 # Minimum height of image
 min_height = 1080
 # How many posts to loop through (max 100)
-maxDownloads = 50
+maxDownloads = 100
 
 
 
@@ -160,15 +160,16 @@ NC = '\033[0m'
 # START SCRIPT --------
 # ---------------------
 
-# Creates directory
-directory = expanduser(directory)
-prepareDirectory(directory)
-
 # Check if subreddit name is specified as parameter
 try:
     subreddit = sys.argv[1]
 except:
     pass
+
+# Creates directory
+directory = expanduser(directory)
+directory = os.path.join(directory, subreddit)
+prepareDirectory(directory)
 
 # Exits if invalid subreddit name
 if not verifySubreddit(subreddit):
