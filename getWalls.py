@@ -20,13 +20,13 @@ directory = '~/Pictures/Wallpapers/Reddit/'
 # Which subreddit to download from
 subreddit = 'wallpapers'
 # Minimum width of image
-min_width = 1920*2
+min_width = 1920
 # Minimum height of image
-min_height = 1080*2
+min_height = 1080
 # How many posts to get for each request (Max 100)
 jsonLimit = 100
 # Increase this number if the number above (jsonLimit) isn't enough posts
-loops = 1
+loops = 5
 
 
 
@@ -206,7 +206,7 @@ print(DARK + '--------------------------------------------' + NC)
 print(PURPLE + 'Downloading to      : ' + ORANGE + directory + NC)
 print(PURPLE + 'From r/             : ' + ORANGE + subreddit + NC)
 print(PURPLE + 'Minimum resolution  : ' + ORANGE + str(min_width) + 'x' + str(min_height) + NC)
-print(PURPLE + 'Maximum downloads   : ' + ORANGE + str(jsonLimit) + NC)
+print(PURPLE + 'Maximum downloads   : ' + ORANGE + str(jsonLimit*loops) + NC)
 print(DARK + '--------------------------------------------' + NC)
 print()
 
