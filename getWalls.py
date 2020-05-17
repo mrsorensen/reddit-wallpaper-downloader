@@ -20,11 +20,13 @@ directory = '~/Pictures/Wallpapers/Reddit/'
 # Which subreddit to download from
 subreddit = 'wallpapers'
 # Minimum width of image
-min_width = 1920
+min_width = 1920*2
 # Minimum height of image
-min_height = 1080
-# How many posts to loop through (max 100)
-maxDownloads = 100
+min_height = 1080*2
+# How many posts to get for each request (Max 100)
+jsonLimit = 100
+# Increase this number if the number above (jsonLimit) isn't enough posts
+loops = 1
 
 
 
@@ -69,10 +71,20 @@ def verifySubreddit(subreddit):
         return True
 
 # Returns list of posts from subreddit as json
-def getPosts(subreddit):
-    URL = 'https://reddit.com/r/{}.json?limit={}'.format(subreddit, maxDownloads)
-    posts = requests.get(URL, headers = {'User-agent':'getWallpapers'}).json()
-    return posts['data']['children']
+def getPosts(subreddit, loops, after):
+    allPosts = []
+    
+    i = 0
+    while i < loops:
+        URL = 'https://reddit.com/r/{}/top/.json?t=all&limit={}&after={}'.format(subreddit, jsonLimit, after)
+        posts = requests.get(URL, headers = {'User-agent':'getWallpapers'}).json()
+        # allPosts.append(posts['data']['children'])
+        for post in posts['data']['children']:
+            allPosts.append(post)
+        after = posts['data']['after']
+        i += 1
+    
+    return allPosts
 
 # Returns false if URL is not an image
 def isImg(URL):
@@ -176,8 +188,11 @@ if not verifySubreddit(subreddit):
     print('r/{} is not a valid subreddit'.format(subreddit))
     sys.exit()
 
+# For reddit pagination (Leave empty)
+after = ''
+
 # Stores posts from function
-posts = getPosts(subreddit)
+posts = getPosts(subreddit, loops, after)
 
 # For adding index numbers to loop
 index = 1
@@ -191,7 +206,7 @@ print(DARK + '--------------------------------------------' + NC)
 print(PURPLE + 'Downloading to      : ' + ORANGE + directory + NC)
 print(PURPLE + 'From r/             : ' + ORANGE + subreddit + NC)
 print(PURPLE + 'Minimum resolution  : ' + ORANGE + str(min_width) + 'x' + str(min_height) + NC)
-print(PURPLE + 'Maximum downloads   : ' + ORANGE + str(maxDownloads) + NC)
+print(PURPLE + 'Maximum downloads   : ' + ORANGE + str(jsonLimit) + NC)
 print(DARK + '--------------------------------------------' + NC)
 print()
 
