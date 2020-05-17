@@ -237,7 +237,7 @@ for post in posts:
 
     # Skip post if not landscape
     elif not isLandscape(post):
-        print(RED + '{}) Skipping protrait image'.format(index) + NC)
+        print(RED + '{}) Skipping portrait image'.format(index) + NC)
         index += 1
         continue
     
