@@ -148,7 +148,7 @@ def alreadyDownloaded(URL):
 
 # Returns false if image from post/URL is not from reddit or imgur domain
 def knownURL(post):
-    if post.lower().startswith('https://i.redd.it/') or post.lower().startswith('https://i.imgur.com/'):
+    if post.lower().startswith('https://i.redd.it/') or post.lower().startswith('http://i.redd.it/') or post.lower().startswith('https://i.imgur.com/') or post.lower().startswith('http://i.imgur.com/'):
         return True
     else: return False
 
